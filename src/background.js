@@ -1,3 +1,4 @@
+// src/background.js
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "fetchDefinition") {
     const word = request.word;
@@ -7,13 +8,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         const definition =
           data[0]?.meanings[0]?.definitions[0]?.definition ||
           "No definition found.";
-        chrome.storage.local.set({ definition });
-        sendResponse({ definition });
+        // Store word and definition in local storage
+        chrome.storage.local.set({ word, definition });
+
+        // Send response back
+        sendResponse({ word, definition });
       })
       .catch(() => {
         const definition = "No definition found.";
-        chrome.storage.local.set({ definition });
-        sendResponse({ definition });
+        // Store word and definition in local storage
+        chrome.storage.local.set({ word, definition });
+
+        // Send response back
+        sendResponse({ word, definition });
       });
     return true; // Keep the messaging channel open for sendResponse
   }

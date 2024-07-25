@@ -2,37 +2,35 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [definition, setDefinition] = useState(
-    "Select a word to get the definition."
-  );
+  const [word, setWord] = useState("No word selected.");
+  const [definition, setDefinition] = useState("No definition available.");
+
   useEffect(() => {
-    const updateDefinition = () => {
-      chrome.storage.local.get(["definition"], (result) => {
-        if (result.definition) {
-          setDefinition(result.definition);
-        }
+    const updatePopupContent = () => {
+      chrome.storage.local.get(["word", "definition"], (result) => {
+        setWord(result.word || "No word selected.");
+        setDefinition(result.definition || "No definition available.");
       });
     };
 
-    // Update definition when the popup is opened
-    updateDefinition();
+    // Update content when the popup is opened
+    updatePopupContent();
 
-    // Listen for changes in storage (when definition is updated)
-    chrome.storage.onChanged.addListener(updateDefinition);
+    // Listen for changes in storage
+    chrome.storage.onChanged.addListener(updatePopupContent);
   }, []);
+
   return (
     <div
       style={{
         width: "300px",
         height: "200px",
-        padding: "10px",
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <h1>Definition</h1>
-      <p>{definition}</p>
+      <h1>{word}</h1>
+      <h3>{definition}</h3>
     </div>
   );
 }
-
 export default App;
