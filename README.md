@@ -74,12 +74,3 @@ For questions or feedback, please contact:
 
 - **Your Name**: [hunde.ddh@gmail.com](mailto:hunde.ddh@gmail.com)
 - **GitHub Profile**: [https://github.com/Hunde-D](https://github.com/Hunde-D)
-
-```
-
-Make sure to replace placeholder URLs and contact information with your actual details. This `README.md` provides a clear overview of the extension, installation instructions, usage details, and development guidelines.
-```
-
-```
-
-```
